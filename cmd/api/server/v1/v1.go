@@ -11,6 +11,7 @@ import (
 	resendClient "github.com/amorindev/go-tmpl/internal/resend"
 	tokenService "github.com/amorindev/go-tmpl/internal/tokens/service"
 	adminHandler "github.com/amorindev/go-tmpl/pkg/features/admin/api/handler"
+	"github.com/amorindev/go-tmpl/pkg/features/app/task"
 	authHandler "github.com/amorindev/go-tmpl/pkg/features/auth/handler"
 	authService "github.com/amorindev/go-tmpl/pkg/features/auth/service"
 	resendAdapter "github.com/amorindev/go-tmpl/pkg/features/mailer/adapter/resend"
@@ -97,6 +98,9 @@ func New() http.Handler {
 	// Note: all subsequent handlers should also be registered using v1
 	authHandler.NewAuthHandler(v1, authSrv, tokenSrv,appEnvs.AppEnv)
 	userHandler.NewUserHandler(v1, userSrv)
+
+	authMdw := middlewares.NewAuthMdw(tokenSrv)
+	task.NewTaskHandler(v1, authMdw)
 
 	mux.HandleFunc("GET /ping", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
