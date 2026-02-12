@@ -65,7 +65,7 @@ func New() http.Handler {
 	}
 
 	// File Storage
-	userFileStg := userFileStorage.NewUserFileStg(minioC.Client, appEnvs.MinioBucketName, 0)
+	userFileStg := userFileStorage.NewUserFileStg(minioC.Client, appEnvs.MinioBucketName, appEnvs.MinioFileExpTime)
 
 	// Services
 	authSrv := service.NewTokenSrv(appEnvs.JWTAccessSecret, appEnvs.JWTRefreshSecret, appEnvs.JWTAccessExpIn, appEnvs.JWTRefreshExpIn, appEnvs.JWTRefreshRememberMeExpIn, appEnvs.JWTIssuer)

@@ -36,4 +36,9 @@ var (
 	ErrPassDoNotMatch    = errors.New("passwords do not match")
 )
 
-
+var (
+	ErrInvalidArguments = errors.New("invalid parameters") // http.StatusBadRequest
+	ErrUploadForbidden  = errors.New("forbidden")          // http.StatusForbidden
+	ErrImageNotFound    = errors.New("image not found")    // StatusNotFound
+	ErrFileTooLarge     = errors.New("file to large")      // StatusRequestEntityTooLarge
+)
