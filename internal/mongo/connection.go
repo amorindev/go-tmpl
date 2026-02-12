@@ -7,7 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 )
 
-func getConnection(dbURI string) (*mongo.Client, error) {
+func GetConnection(dbURI string) (*mongo.Client, error) {
 	timeDuration := time.Second * 10
 
 	// Configure client options with connection timeout.

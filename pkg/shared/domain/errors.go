@@ -37,7 +37,14 @@ var (
 )
 
 var (
+<<<<<<< Updated upstream
 	ErrInvalidOtpCode       = errors.New("invalid otp code")
 	ErrOtpPurposeNotAllowed = errors.New("otp purpose not allowed")
 	ErrOtpExpired           = errors.New("otp expired")
+=======
+	ErrInvalidArguments = errors.New("invalid parameters") // http.StatusBadRequest
+	ErrUploadForbidden  = errors.New("forbidden")          // http.StatusForbidden
+	ErrImageNotFound    = errors.New("image not found")    // StatusNotFound
+	ErrFileTooLarge     = errors.New("file to large")      // StatusRequestEntityTooLarge
+>>>>>>> Stashed changes
 )

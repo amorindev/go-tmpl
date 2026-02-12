@@ -31,7 +31,7 @@ func New(dbURI string) *Data {
 
 // initDB connects to MongoDB and sets the client in the singleton Data struct.
 func initDB(dbURI string) {
-	db, err := getConnection(dbURI)
+	db, err := GetConnection(dbURI)
 	if err != nil {
 		log.Fatal(err)
 	}

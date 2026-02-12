@@ -58,7 +58,8 @@ func (h Handler) UploadAvatar(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if !allowedTypes[fileType] {
-		cShared.RespondError(w, dShared.NewAppError(dShared.ErrCodeInternalServerError, "invalid image format"))
+		// ! corregir es bad request
+		cShared.RespondError(w, dShared.NewAppError(dShared.ErrCodeInvalidParams, "invalid image format"))
 		return
 	}
 

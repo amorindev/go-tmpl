@@ -15,6 +15,7 @@ func NewUserHandler(server *http.ServeMux, userSrv port.UserSrv) *Handler {
 		UserSrv: userSrv,
 	}
 
+	// !  ver si necesita token  por que ahi cualquiera ppuede modificarlo
 	server.HandleFunc("POST /users/{userId}/avatar", h.UploadAvatar)
 
 	return h

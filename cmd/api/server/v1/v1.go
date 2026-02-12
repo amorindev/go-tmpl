@@ -5,6 +5,10 @@ import (
 	"log"
 	"net/http"
 
+<<<<<<< Updated upstream
+=======
+	"github.com/amorindev/go-tmpl/internal/tokens/service"
+>>>>>>> Stashed changes
 	"github.com/amorindev/go-tmpl/internal/config"
 	minioClient "github.com/amorindev/go-tmpl/internal/minio"
 	mongoClient "github.com/amorindev/go-tmpl/internal/mongo"
@@ -83,14 +87,20 @@ func New() http.Handler {
 	mailerAdt := resendAdapter.NewResendAdt(resendCli, appEnvs.EmailFrom)
 
 	// File Storage
-	userFileStg := userFileStorage.NewUserFileStg(minioC.Client, appEnvs.MinioBucketName, 0)
+	userFileStg := userFileStorage.NewUserFileStg(minioC.Client, appEnvs.MinioBucketName, appEnvs.MinioFileExpTime)
 
 	// Services
+<<<<<<< Updated upstream
 	tokenSrv := tokenService.NewTokenSrv(appEnvs.JWTAccessSecret, appEnvs.JWTRefreshSecret, appEnvs.JWTAccessExpIn, appEnvs.JWTRefreshExpIn, appEnvs.JWTRefreshRememberMeExpIn, appEnvs.JWTIssuer)
 	sessionSrv := sessionService.NewSessionSrv(sessionRepo, tokenSrv)
 	otpCodeSrv := otpCodeService.NewOtpCodeSrv(otpCodeRepo)
 	mailerSrv := service.NewMailerSrv(mailerAdt, appEnvs.AppName)
 	authSrv := authService.NewAuthSrv(userRepo, userFileStg, sessionSrv, otpCodeSrv, mailerSrv)
+=======
+	authSrv := service.NewTokenSrv(appEnvs.JWTAccessSecret, appEnvs.JWTRefreshSecret, appEnvs.JWTAccessExpIn, appEnvs.JWTRefreshExpIn, appEnvs.JWTRefreshRememberMeExpIn, appEnvs.JWTIssuer)
+	sessionSrv := sessionService.NewSessionSrv(sessionRepo, authSrv)
+	authMethodSrv := authMethodService.NewAuthMethodSrv(userRepo, userFileStg, sessionSrv)
+>>>>>>> Stashed changes
 	userSrv := userService.NewUserSrv(userRepo, userFileStg)
 
 	// Handler

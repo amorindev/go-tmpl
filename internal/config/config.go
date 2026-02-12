@@ -14,11 +14,12 @@ type Config struct {
 	MongoInitDB string
 
 	// Minio
-	MinioEndpoint   string
-	MinioAccessKey  string
-	MinioSecretKey  string
-	MinioUseSSL     bool
-	MinioBucketName string
+	MinioEndpoint    string
+	MinioAccessKey   string
+	MinioSecretKey   string
+	MinioUseSSL      bool
+	MinioBucketName  string
+	MinioFileExpTime time.Duration
 
 	// Resend
 	ResendApiKey string
@@ -49,6 +50,9 @@ func Load() *Config {
 	// Minio
 	minioBucketName := cmp.Or(os.Getenv("MINIO_BUCKET_NAME"), "auth-tmpl")
 	useSSL := mustGetEnv("MINIO_SECURE")
+	
+	minioFileExpTimeStr := cmp.Or(os.Getenv("MINIO_FILE_EXP_TIME"), "168h") 
+	minioFileExpTime, err := time.ParseDuration(minioFileExpTimeStr)
 
 	var useSSLbool bool
 	if useSSL == "true" || useSSL == "yes" {
@@ -92,9 +96,13 @@ func Load() *Config {
 		MinioSecretKey:            mustGetEnv("MINIO_SECRET_KEY"),
 		MinioUseSSL:               useSSLbool,
 		MinioBucketName:           minioBucketName,
+<<<<<<< Updated upstream
 		ResendApiKey:              mustGetEnv("RESEND_API_KEY"),
 		EmailFrom:                 mustGetEnv("EMAIL_FROM"),
 		AppName:                   mustGetEnv("APP_NAME"),
+=======
+		MinioFileExpTime:          minioFileExpTime,
+>>>>>>> Stashed changes
 		JWTAccessSecret:           mustGetEnv("JWT_ACCESS_TOKEN"),
 		JWTRefreshSecret:          mustGetEnv("JWT_REFRESH_TOKEN"),
 		JWTIssuer:                 mustGetEnv("JWT_ISS"),
